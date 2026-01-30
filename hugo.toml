@@ -1,0 +1,25 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Van Moll Fest Winter 2026"
+theme = "PaperMod"
+
+[params]
+defaultTheme = "auto"
+ShowReadingTime = false
+ShowShareButtons = false
+ShowPostNavLinks = false
+ShowBreadCrumbs = false
+ShowCodeCopyButtons = false
+disableSpecial1stPost = true
+hideSummary = true
+showtoc = false
+
+[params.homeInfoParams]
+Title = "Van Moll Fest Winter 2026"
+Content = "Beer list with Untappd ratings"
+
+[menu]
+[[menu.main]]
+name = "Beer List"
+url = "/"
+weight = 1

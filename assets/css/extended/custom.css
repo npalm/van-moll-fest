@@ -1,0 +1,65 @@
+/* Responsive table styles */
+.post-content table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  margin: 1.5rem 0;
+}
+
+.post-content th,
+.post-content td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-content th {
+  background: var(--code-bg);
+  position: sticky;
+  top: 0;
+}
+
+.post-content tbody tr:hover {
+  background-color: var(--code-bg);
+}
+
+/* Brewery name highlight */
+.post-content td:first-child strong {
+  color: var(--primary);
+}
+
+/* Beer name - allow wrapping */
+.post-content td:nth-child(2) {
+  white-space: normal;
+  min-width: 150px;
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .post-content table {
+    font-size: 0.85rem;
+  }
+
+  .post-content th,
+  .post-content td {
+    padding: 0.4rem 0.5rem;
+  }
+
+  /* Hide style column on mobile */
+  .post-content th:nth-child(3),
+  .post-content td:nth-child(3) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .post-content table {
+    font-size: 0.8rem;
+  }
+
+  /* Also hide ABV on very small screens */
+  .post-content th:nth-child(4),
+  .post-content td:nth-child(4) {
+    display: none;
+  }
+}
