@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { ShareModal } from './ShareModal';
+
 interface HeaderProps {
   isDark: boolean;
   toggleTheme: () => void;
@@ -15,27 +18,29 @@ export function Header({
   onReset,
   hasData,
 }: HeaderProps) {
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-10 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold text-slate-900 dark:text-white">
-            Van Moll Fest Winter 2026
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            {beerCount === totalCount
-              ? `${totalCount} beers`
-              : `${beerCount} of ${totalCount} beers`}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          {/* Reset button */}
-          {hasData && (
+    <>
+      <header className="sticky top-0 z-10 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white">
+              Van Moll Fest Winter 2026
+            </h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              {beerCount === totalCount
+                ? `${totalCount} beers`
+                : `${beerCount} of ${totalCount} beers`}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            {/* Share button */}
             <button
-              onClick={onReset}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-colors"
-              aria-label="Reset wishlist and tasted beers"
-              title="Reset wishlist and tasted beers"
+              onClick={() => setIsShareModalOpen(true)}
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-amber-900/30 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+              aria-label="Share"
+              title="Share"
             >
               <svg
                 className="w-5 h-5"
@@ -44,38 +49,63 @@ export function Header({
                 strokeWidth={2}
                 viewBox="0 0 24 24"
               >
-                {/* Eraser icon */}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M5.505 15.495l6.99-6.99a2 2 0 012.828 0l2.172 2.172a2 2 0 010 2.828l-6.99 6.99a2 2 0 01-2.828 0l-2.172-2.172a2 2 0 010-2.828z"
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
                 />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 21h12" />
               </svg>
             </button>
-          )}
-          {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {isDark ? (
-              <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-              </svg>
+            {/* Reset button */}
+            {hasData && (
+              <button
+                onClick={onReset}
+                className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                aria-label="Reset wishlist and tasted beers"
+                title="Reset wishlist and tasted beers"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  {/* Eraser icon */}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5.505 15.495l6.99-6.99a2 2 0 012.828 0l2.172 2.172a2 2 0 010 2.828l-6.99 6.99a2 2 0 01-2.828 0l-2.172-2.172a2 2 0 010-2.828z"
+                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 21h12" />
+                </svg>
+              </button>
             )}
-          </button>
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDark ? (
+                <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      <ShareModal isOpen={isShareModalOpen} onClose={() => setIsShareModalOpen(false)} />
+    </>
   );
 }
