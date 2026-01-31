@@ -1,9 +1,11 @@
 import type { SortOption, RatingFilter } from '../types/beer';
+import { StyleTagFilter } from './StyleTagFilter';
 
 interface FilterBarProps {
   styles: string[];
-  selectedStyle: string;
-  onStyleChange: (style: string) => void;
+  selectedStyles: string[];
+  onToggleStyle: (style: string) => void;
+  onClearStyles: () => void;
   selectedRating: RatingFilter;
   onRatingChange: (rating: RatingFilter) => void;
   selectedSort: SortOption;
@@ -31,8 +33,9 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 
 export function FilterBar({
   styles,
-  selectedStyle,
-  onStyleChange,
+  selectedStyles,
+  onToggleStyle,
+  onClearStyles,
   selectedRating,
   onRatingChange,
   selectedSort,
@@ -45,20 +48,14 @@ export function FilterBar({
     'px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent';
 
   return (
-    <div className="flex flex-wrap gap-3">
-      {/* Style filter */}
-      <select
-        value={selectedStyle}
-        onChange={(e) => onStyleChange(e.target.value)}
-        className={selectClass}
-      >
-        <option value="">All Styles</option>
-        {styles.map((style) => (
-          <option key={style} value={style}>
-            {style}
-          </option>
-        ))}
-      </select>
+    <div className="flex flex-wrap gap-3 items-start">
+      {/* Style filter (multi-select tags) */}
+      <StyleTagFilter
+        styles={styles}
+        selectedStyles={selectedStyles}
+        onToggleStyle={onToggleStyle}
+        onClearStyles={onClearStyles}
+      />
 
       {/* Rating filter */}
       <select

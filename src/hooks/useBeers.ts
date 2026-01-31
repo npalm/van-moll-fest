@@ -22,7 +22,8 @@ interface UseBeersResult {
   lastUpdated: string | null;
   filters: FilterState;
   setSearch: (search: string) => void;
-  setStyle: (style: string) => void;
+  setStyles: (styles: string[]) => void;
+  toggleStyle: (style: string) => void;
   setRating: (rating: RatingFilter) => void;
   setSort: (sort: SortOption) => void;
   setShowWishlistOnly: (show: boolean) => void;
@@ -37,7 +38,7 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
   const [lastUpdated] = useState<string | null>((beersData as BeersData).lastUpdated);
   const [filters, setFilters] = useState<FilterState>({
     search: '',
-    style: '',
+    styles: [],
     rating: 'all',
     sort: 'brewery-grouped',
     showWishlistOnly: false,
@@ -69,9 +70,9 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
       );
     }
 
-    // Style filter
-    if (filters.style) {
-      result = result.filter((beer) => beer.style === filters.style);
+    // Style filter (multiple styles)
+    if (filters.styles.length > 0) {
+      result = result.filter((beer) => filters.styles.includes(beer.style));
     }
 
     // Rating filter
@@ -135,7 +136,14 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
 
   // Filter setters
   const setSearch = (search: string) => setFilters((prev) => ({ ...prev, search }));
-  const setStyle = (style: string) => setFilters((prev) => ({ ...prev, style }));
+  const setStyles = (styles: string[]) => setFilters((prev) => ({ ...prev, styles }));
+  const toggleStyle = (style: string) =>
+    setFilters((prev) => ({
+      ...prev,
+      styles: prev.styles.includes(style)
+        ? prev.styles.filter((s) => s !== style)
+        : [...prev.styles, style],
+    }));
   const setRating = (rating: RatingFilter) => setFilters((prev) => ({ ...prev, rating }));
   const setSort = (sort: SortOption) => setFilters((prev) => ({ ...prev, sort }));
   const setShowWishlistOnly = (showWishlistOnly: boolean) =>
@@ -152,7 +160,8 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     lastUpdated,
     filters,
     setSearch,
-    setStyle,
+    setStyles,
+    toggleStyle,
     setRating,
     setSort,
     setShowWishlistOnly,

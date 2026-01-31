@@ -18,7 +18,8 @@ function App() {
     error,
     filters,
     setSearch,
-    setStyle,
+    setStyles,
+    toggleStyle,
     setRating,
     setSort,
     setShowWishlistOnly,
@@ -66,8 +67,9 @@ function App() {
           <SearchBar value={filters.search} onChange={setSearch} />
           <FilterBar
             styles={styles}
-            selectedStyle={filters.style}
-            onStyleChange={setStyle}
+            selectedStyles={filters.styles}
+            onToggleStyle={toggleStyle}
+            onClearStyles={() => setStyles([])}
             selectedRating={filters.rating}
             onRatingChange={setRating}
             selectedSort={filters.sort}
