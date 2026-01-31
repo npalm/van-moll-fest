@@ -32,7 +32,7 @@ function App() {
     setRating,
     setSort,
     setShowWishlistOnly,
-    setHideTasted,
+    setTastedFilter,
     isGroupedView,
   } = useBeers(wishlist, tastedList);
 
@@ -87,8 +87,8 @@ function App() {
             showWishlistOnly={filters.showWishlistOnly}
             onWishlistToggle={setShowWishlistOnly}
             wishlistCount={wishlistCount}
-            hideTasted={filters.hideTasted}
-            onHideTastedToggle={setHideTasted}
+            tastedFilter={filters.tastedFilter}
+            onTastedFilterChange={setTastedFilter}
             tastedCount={tastedCount}
           />
         </div>

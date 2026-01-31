@@ -5,6 +5,7 @@ import type {
   FilterState,
   SortOption,
   RatingFilter,
+  TastedFilter,
   BreweryGroup,
 } from '../types/beer';
 
@@ -27,7 +28,7 @@ interface UseBeersResult {
   setRating: (rating: RatingFilter) => void;
   setSort: (sort: SortOption) => void;
   setShowWishlistOnly: (show: boolean) => void;
-  setHideTasted: (hide: boolean) => void;
+  setTastedFilter: (filter: TastedFilter) => void;
   isGroupedView: boolean;
 }
 
@@ -43,7 +44,7 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
     rating: 'all',
     sort: 'brewery-grouped',
     showWishlistOnly: false,
-    hideTasted: false,
+    tastedFilter: 'all',
   });
 
   // Extract unique styles
@@ -88,8 +89,10 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
       result = result.filter((beer) => wishlist.has(beer.id));
     }
 
-    // Hide tasted filter
-    if (filters.hideTasted) {
+    // Tasted filter
+    if (filters.tastedFilter === 'tasted') {
+      result = result.filter((beer) => tastedList.has(beer.id));
+    } else if (filters.tastedFilter === 'untasted') {
       result = result.filter((beer) => !tastedList.has(beer.id));
     }
 
@@ -155,7 +158,8 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
   const setSort = (sort: SortOption) => setFilters((prev) => ({ ...prev, sort }));
   const setShowWishlistOnly = (showWishlistOnly: boolean) =>
     setFilters((prev) => ({ ...prev, showWishlistOnly }));
-  const setHideTasted = (hideTasted: boolean) => setFilters((prev) => ({ ...prev, hideTasted }));
+  const setTastedFilter = (tastedFilter: TastedFilter) =>
+    setFilters((prev) => ({ ...prev, tastedFilter }));
 
   return {
     beers,
@@ -173,7 +177,7 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
     setRating,
     setSort,
     setShowWishlistOnly,
-    setHideTasted,
+    setTastedFilter,
     isGroupedView,
   };
 }

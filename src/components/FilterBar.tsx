@@ -1,4 +1,4 @@
-import type { SortOption, RatingFilter } from '../types/beer';
+import type { SortOption, RatingFilter, TastedFilter } from '../types/beer';
 import { StyleTagFilter } from './StyleTagFilter';
 
 interface FilterBarProps {
@@ -13,8 +13,8 @@ interface FilterBarProps {
   showWishlistOnly: boolean;
   onWishlistToggle: (show: boolean) => void;
   wishlistCount: number;
-  hideTasted: boolean;
-  onHideTastedToggle: (hide: boolean) => void;
+  tastedFilter: TastedFilter;
+  onTastedFilterChange: (filter: TastedFilter) => void;
   tastedCount: number;
 }
 
@@ -46,8 +46,8 @@ export function FilterBar({
   showWishlistOnly,
   onWishlistToggle,
   wishlistCount,
-  hideTasted,
-  onHideTastedToggle,
+  tastedFilter,
+  onTastedFilterChange,
   tastedCount,
 }: FilterBarProps) {
   const selectClass =
@@ -112,26 +112,52 @@ export function FilterBar({
         Wishlist ({wishlistCount})
       </button>
 
-      {/* Hide tasted toggle */}
+      {/* Tasted filter */}
       {tastedCount > 0 && (
-        <button
-          onClick={() => onHideTastedToggle(!hideTasted)}
-          className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors flex items-center gap-2 ${
-            hideTasted
-              ? 'bg-amber-500 border-amber-500 text-white'
-              : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-amber-500 dark:hover:border-amber-500'
-          }`}
-        >
-          <svg
-            className={`w-4 h-4 ${hideTasted ? 'text-white' : 'text-amber-500'}`}
-            fill="currentColor"
-            viewBox="0 0 24 24"
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => onTastedFilterChange(tastedFilter === 'tasted' ? 'all' : 'tasted')}
+            className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors flex items-center gap-2 ${
+              tastedFilter === 'tasted'
+                ? 'bg-amber-500 border-amber-500 text-white'
+                : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-amber-500 dark:hover:border-amber-500'
+            }`}
+            title="Show only tasted beers"
           >
-            {/* Beer mug icon */}
-            <path d="M4 3h12v2c0 1-.5 2-1.5 2.5.5.5 1 1.5 1 2.5v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8c0-1 .5-2 1-2.5C4.5 7 4 6 4 5V3zm12 5h3a2 2 0 012 2v4a2 2 0 01-2 2h-3v-8z" />
-          </svg>
-          {hideTasted ? `Hiding ${tastedCount} tasted` : `Hide ${tastedCount} tasted`}
-        </button>
+            <svg
+              className={`w-4 h-4 ${tastedFilter === 'tasted' ? 'text-white' : 'text-amber-500'}`}
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M4 3h12v2c0 1-.5 2-1.5 2.5.5.5 1 1.5 1 2.5v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8c0-1 .5-2 1-2.5C4.5 7 4 6 4 5V3zm12 5h3a2 2 0 012 2v4a2 2 0 01-2 2h-3v-8z" />
+            </svg>
+            Tasted ({tastedCount})
+          </button>
+          <button
+            onClick={() => onTastedFilterChange(tastedFilter === 'untasted' ? 'all' : 'untasted')}
+            className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors flex items-center gap-2 ${
+              tastedFilter === 'untasted'
+                ? 'bg-slate-500 border-slate-500 text-white'
+                : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-500 dark:hover:border-slate-500'
+            }`}
+            title="Hide tasted beers"
+          >
+            <svg
+              className={`w-4 h-4 ${tastedFilter === 'untasted' ? 'text-white' : 'text-slate-500'}`}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+              />
+            </svg>
+            Hide tasted
+          </button>
+        </div>
       )}
     </div>
   );
