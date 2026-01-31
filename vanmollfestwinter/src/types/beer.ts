@@ -24,8 +24,9 @@ export type RatingFilter = 'all' | '4.0' | '3.75' | '3.5';
 
 export interface FilterState {
   search: string;
-  style: string;
+  styles: string[];
   rating: RatingFilter;
   sort: SortOption;
   showWishlistOnly: boolean;
+  hideTasted: boolean;
 }

@@ -1,9 +1,11 @@
 import type { SortOption, RatingFilter } from '../types/beer';
+import { StyleTagFilter } from './StyleTagFilter';
 
 interface FilterBarProps {
   styles: string[];
-  selectedStyle: string;
-  onStyleChange: (style: string) => void;
+  selectedStyles: string[];
+  onToggleStyle: (style: string) => void;
+  onClearStyles: () => void;
   selectedRating: RatingFilter;
   onRatingChange: (rating: RatingFilter) => void;
   selectedSort: SortOption;
@@ -11,6 +13,9 @@ interface FilterBarProps {
   showWishlistOnly: boolean;
   onWishlistToggle: (show: boolean) => void;
   wishlistCount: number;
+  hideTasted: boolean;
+  onHideTastedToggle: (hide: boolean) => void;
+  tastedCount: number;
 }
 
 const RATING_OPTIONS: { value: RatingFilter; label: string }[] = [
@@ -31,8 +36,9 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 
 export function FilterBar({
   styles,
-  selectedStyle,
-  onStyleChange,
+  selectedStyles,
+  onToggleStyle,
+  onClearStyles,
   selectedRating,
   onRatingChange,
   selectedSort,
@@ -40,25 +46,22 @@ export function FilterBar({
   showWishlistOnly,
   onWishlistToggle,
   wishlistCount,
+  hideTasted,
+  onHideTastedToggle,
+  tastedCount,
 }: FilterBarProps) {
   const selectClass =
     'px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent';
 
   return (
-    <div className="flex flex-wrap gap-3">
-      {/* Style filter */}
-      <select
-        value={selectedStyle}
-        onChange={(e) => onStyleChange(e.target.value)}
-        className={selectClass}
-      >
-        <option value="">All Styles</option>
-        {styles.map((style) => (
-          <option key={style} value={style}>
-            {style}
-          </option>
-        ))}
-      </select>
+    <div className="flex flex-wrap gap-3 items-start">
+      {/* Style filter (multi-select tags) */}
+      <StyleTagFilter
+        styles={styles}
+        selectedStyles={selectedStyles}
+        onToggleStyle={onToggleStyle}
+        onClearStyles={onClearStyles}
+      />
 
       {/* Rating filter */}
       <select
@@ -91,12 +94,12 @@ export function FilterBar({
         onClick={() => onWishlistToggle(!showWishlistOnly)}
         className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors flex items-center gap-2 ${
           showWishlistOnly
-            ? 'bg-amber-500 border-amber-500 text-white'
-            : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-amber-500 dark:hover:border-amber-500'
+            ? 'bg-red-500 border-red-500 text-white'
+            : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-red-500 dark:hover:border-red-500'
         }`}
       >
         <svg
-          className={`w-4 h-4 ${showWishlistOnly ? 'text-white' : 'text-amber-500'}`}
+          className={`w-4 h-4 ${showWishlistOnly ? 'text-white' : 'text-red-500'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -107,6 +110,26 @@ export function FilterBar({
           />
         </svg>
         Wishlist ({wishlistCount})
+      </button>
+
+      {/* Hide tasted toggle */}
+      <button
+        onClick={() => onHideTastedToggle(!hideTasted)}
+        className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors flex items-center gap-2 ${
+          hideTasted
+            ? 'bg-amber-500 border-amber-500 text-white'
+            : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-amber-500 dark:hover:border-amber-500'
+        }`}
+      >
+        <svg
+          className={`w-4 h-4 ${hideTasted ? 'text-white' : 'text-amber-500'}`}
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          {/* Beer mug icon */}
+          <path d="M4 3h12v2c0 1-.5 2-1.5 2.5.5.5 1 1.5 1 2.5v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8c0-1 .5-2 1-2.5C4.5 7 4 6 4 5V3zm12 5h3a2 2 0 012 2v4a2 2 0 01-2 2h-3v-8z" />
+        </svg>
+        Tasted ({tastedCount})
       </button>
     </div>
   );
