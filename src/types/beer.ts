@@ -7,6 +7,7 @@ export interface Beer {
   rating: number | null;
   untappdUrl: string;
   order: number;
+  floor?: number;
 }
 
 export interface BeersData {
@@ -30,4 +31,5 @@ export interface FilterState {
   sort: SortOption;
   showWishlistOnly: boolean;
   tastedFilter: TastedFilter;
+  floor?: 1 | 2;
 }

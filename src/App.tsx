@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTheme } from './hooks/useTheme';
 import { useWishlist } from './hooks/useWishlist';
 import { useBeers } from './hooks/useBeers';
@@ -5,8 +6,12 @@ import { Header } from './components/Header';
 import { SearchBar } from './components/SearchBar';
 import { FilterBar } from './components/FilterBar';
 import { BeerList } from './components/BeerList';
+import { FloorPlanView } from './components/FloorPlanView';
+
+type ViewMode = 'list' | 'floorplan';
 
 function App() {
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
   const { isDark, toggleTheme } = useTheme();
   const {
     wishlist,
@@ -94,14 +99,64 @@ function App() {
             onTastedFilterChange={setTastedFilter}
             tastedCount={tastedCount}
           />
+
+          {/* View toggle */}
+          <div className="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+            <button
+              onClick={() => setViewMode('list')}
+              className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'list'
+                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <svg
+                className="inline-block w-4 h-4 mr-2 -mt-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                />
+              </svg>
+              Beer List
+            </button>
+            <button
+              onClick={() => setViewMode('floorplan')}
+              className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'floorplan'
+                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <svg
+                className="inline-block w-4 h-4 mr-2 -mt-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                />
+              </svg>
+              Floor Plans
+            </button>
+          </div>
         </div>
 
-        {/* Beer list */}
+        {/* Content */}
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-8 w-8 border-2 border-amber-500 border-t-transparent" />
           </div>
-        ) : (
+        ) : viewMode === 'list' ? (
           <BeerList
             beers={filteredBeers}
             breweryGroups={breweryGroups}
@@ -111,6 +166,8 @@ function App() {
             onToggleWishlist={toggleWishlist}
             onToggleTasted={toggleTasted}
           />
+        ) : (
+          <FloorPlanView breweryGroups={breweryGroups} />
         )}
       </main>
 
@@ -136,6 +193,15 @@ function App() {
               className="text-amber-600 dark:text-amber-500 hover:underline"
             >
               Van Moll Fest Winter 2026
+            </a>
+            <span>•</span>
+            <a
+              href="https://vanmollcraftbeer.com/wp-content/uploads/2026/01/VAN-MOLL-FEST-WINTER-EDITION-BEERS.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-600 dark:text-amber-500 hover:underline"
+            >
+              Official Taplist (PDF)
             </a>
             <span>•</span>
             <a
