@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface ShareModalProps {
@@ -6,11 +6,18 @@ interface ShareModalProps {
   onClose: () => void;
 }
 
-const APP_URL = 'https://vanmollfest.npalm.xyz';
 const SHARE_TEXT = 'Check out Van Moll Fest Winter 2026!';
 
 export function ShareModal({ isOpen, onClose }: ShareModalProps) {
   const [copied, setCopied] = useState(false);
+
+  // Get the current URL dynamically (works on any deployed domain)
+  const appUrl = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return window.location.origin;
+    }
+    return '';
+  }, []);
 
   // Close on escape key
   useEffect(() => {
@@ -35,7 +42,7 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
   if (!isOpen) return null;
 
   const handleWhatsAppShare = () => {
-    const url = `https://wa.me/?text=${encodeURIComponent(`${SHARE_TEXT} ${APP_URL}`)}`;
+    const url = `https://wa.me/?text=${encodeURIComponent(`${SHARE_TEXT} ${appUrl}`)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -46,11 +53,11 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
       navigator.share({
         title: 'Van Moll Fest Winter 2026',
         text: SHARE_TEXT,
-        url: APP_URL,
+        url: appUrl,
       });
     } else {
       // Fallback: copy the share text for Signal
-      navigator.clipboard.writeText(`${SHARE_TEXT} ${APP_URL}`);
+      navigator.clipboard.writeText(`${SHARE_TEXT} ${appUrl}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -58,13 +65,13 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(APP_URL);
+      await navigator.clipboard.writeText(appUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback for older browsers
       const textArea = document.createElement('textarea');
-      textArea.value = APP_URL;
+      textArea.value = appUrl;
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand('copy');
@@ -80,7 +87,7 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
         await navigator.share({
           title: 'Van Moll Fest Winter 2026',
           text: SHARE_TEXT,
-          url: APP_URL,
+          url: appUrl,
         });
       } catch {
         // User cancelled or share failed
@@ -137,7 +144,7 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
         <div className="flex justify-center mb-6">
           <div className="bg-white p-3 rounded-xl shadow-inner">
             <QRCodeSVG
-              value={APP_URL}
+              value={appUrl}
               size={160}
               level="M"
               includeMargin={false}
@@ -227,7 +234,7 @@ export function ShareModal({ isOpen, onClose }: ShareModalProps) {
 
         {/* URL display */}
         <p className="mt-4 text-center text-xs text-slate-500 dark:text-slate-400 break-all">
-          {APP_URL}
+          {appUrl}
         </p>
       </div>
     </div>
