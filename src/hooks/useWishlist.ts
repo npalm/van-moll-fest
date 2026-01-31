@@ -1,38 +1,32 @@
 import { useState, useEffect, useCallback } from 'react';
+import type { BeersData } from '../types/beer';
+import beersData from '../data/beers.json';
 
 const WISHLIST_KEY = 'vanmoll-wishlist';
 const TASTED_KEY = 'vanmoll-tasted';
 
-export function useWishlist() {
-  const [wishlist, setWishlist] = useState<Set<number>>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem(WISHLIST_KEY);
-        if (stored) {
-          const ids = JSON.parse(stored) as number[];
-          return new Set(ids);
-        }
-      } catch {
-        // Invalid data, start fresh
-      }
-    }
-    return new Set();
-  });
+// Get valid beer IDs from the bundled data
+const validBeerIds = new Set<number | null>((beersData as BeersData).beers.map((beer) => beer.id));
 
-  const [tastedList, setTastedList] = useState<Set<number>>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem(TASTED_KEY);
-        if (stored) {
-          const ids = JSON.parse(stored) as number[];
-          return new Set(ids);
-        }
-      } catch {
-        // Invalid data, start fresh
+function loadFromStorage(key: string): Set<number> {
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = localStorage.getItem(key);
+      if (stored) {
+        const ids = JSON.parse(stored) as number[];
+        // Filter out invalid IDs immediately when loading
+        return new Set(ids.filter((id) => validBeerIds.has(id)));
       }
+    } catch {
+      // Invalid data, start fresh
     }
-    return new Set();
-  });
+  }
+  return new Set();
+}
+
+export function useWishlist() {
+  const [wishlist, setWishlist] = useState<Set<number>>(() => loadFromStorage(WISHLIST_KEY));
+  const [tastedList, setTastedList] = useState<Set<number>>(() => loadFromStorage(TASTED_KEY));
 
   useEffect(() => {
     localStorage.setItem(WISHLIST_KEY, JSON.stringify([...wishlist]));
