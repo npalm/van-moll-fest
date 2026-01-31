@@ -17,7 +17,7 @@ export function BreweryLogo({ brewery, size = 'md', className = '' }: BreweryLog
   const info = getBreweryInfo(brewery);
   const initials = getBreweryInitials(brewery);
   const [imageError, setImageError] = useState(false);
-  
+
   // If we have a logo and it hasn't errored, show the image
   if (info.logo && !imageError) {
     return (
@@ -30,7 +30,7 @@ export function BreweryLogo({ brewery, size = 'md', className = '' }: BreweryLog
       />
     );
   }
-  
+
   // Fallback to colored initials
   return (
     <div

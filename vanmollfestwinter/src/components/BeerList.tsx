@@ -27,9 +27,7 @@ function EmptyState() {
           d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"
         />
       </svg>
-      <h3 className="mt-4 text-lg font-medium text-slate-900 dark:text-white">
-        No beers found
-      </h3>
+      <h3 className="mt-4 text-lg font-medium text-slate-900 dark:text-white">No beers found</h3>
       <p className="mt-2 text-slate-500 dark:text-slate-400">
         Try adjusting your search or filters
       </p>
@@ -60,7 +58,13 @@ function BeerGrid({ beers, isInWishlist, onToggleWishlist, showBrewery = false }
   );
 }
 
-export function BeerList({ beers, breweryGroups, isGroupedView, isInWishlist, onToggleWishlist }: BeerListProps) {
+export function BeerList({
+  beers,
+  breweryGroups,
+  isGroupedView,
+  isInWishlist,
+  onToggleWishlist,
+}: BeerListProps) {
   if (isGroupedView ? breweryGroups.length === 0 : beers.length === 0) {
     return <EmptyState />;
   }
@@ -75,7 +79,7 @@ export function BeerList({ beers, breweryGroups, isGroupedView, isInWishlist, on
             <section key={group.brewery} className="relative">
               {/* Brewery header */}
               <div className="flex items-center gap-4 mb-5 pb-4 border-b border-slate-200 dark:border-slate-700">
-                <a 
+                <a
                   href={breweryInfo.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -84,7 +88,7 @@ export function BeerList({ beers, breweryGroups, isGroupedView, isInWishlist, on
                   <BreweryLogo brewery={group.brewery} size="lg" />
                 </a>
                 <div className="flex-1">
-                  <a 
+                  <a
                     href={breweryInfo.url}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -92,8 +96,18 @@ export function BeerList({ beers, breweryGroups, isGroupedView, isInWishlist, on
                   >
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-500 transition-colors">
                       {group.brewery}
-                      <svg className="inline-block w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <svg
+                        className="inline-block w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
                       </svg>
                     </h2>
                   </a>

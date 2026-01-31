@@ -1,5 +1,12 @@
 import { useState, useMemo } from 'react';
-import type { Beer, BeersData, FilterState, SortOption, RatingFilter, BreweryGroup } from '../types/beer';
+import type {
+  Beer,
+  BeersData,
+  FilterState,
+  SortOption,
+  RatingFilter,
+  BreweryGroup,
+} from '../types/beer';
 
 // Import beer data directly - bundled at build time
 import beersData from '../../public/beers.json';
@@ -81,11 +88,12 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     // Sort
     result.sort((a, b) => {
       switch (filters.sort) {
-        case 'brewery-grouped':
+        case 'brewery-grouped': {
           // Sort by brewery first, then by beer name within brewery
           const breweryCompare = a.brewery.localeCompare(b.brewery);
           if (breweryCompare !== 0) return breweryCompare;
           return a.name.localeCompare(b.name);
+        }
         case 'rating':
           // Null ratings go to the end
           if (a.rating === null && b.rating === null) return 0;
@@ -110,14 +118,14 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
   // Group beers by brewery (for grouped view)
   const breweryGroups = useMemo((): BreweryGroup[] => {
     if (filters.sort !== 'brewery-grouped') return [];
-    
+
     const groups = new Map<string, Beer[]>();
     for (const beer of filteredBeers) {
       const existing = groups.get(beer.brewery) || [];
       existing.push(beer);
       groups.set(beer.brewery, existing);
     }
-    
+
     return Array.from(groups.entries())
       .map(([brewery, beers]) => ({ brewery, beers }))
       .sort((a, b) => a.brewery.localeCompare(b.brewery));
@@ -126,14 +134,10 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
   const isGroupedView = filters.sort === 'brewery-grouped';
 
   // Filter setters
-  const setSearch = (search: string) =>
-    setFilters((prev) => ({ ...prev, search }));
-  const setStyle = (style: string) =>
-    setFilters((prev) => ({ ...prev, style }));
-  const setRating = (rating: RatingFilter) =>
-    setFilters((prev) => ({ ...prev, rating }));
-  const setSort = (sort: SortOption) =>
-    setFilters((prev) => ({ ...prev, sort }));
+  const setSearch = (search: string) => setFilters((prev) => ({ ...prev, search }));
+  const setStyle = (style: string) => setFilters((prev) => ({ ...prev, style }));
+  const setRating = (rating: RatingFilter) => setFilters((prev) => ({ ...prev, rating }));
+  const setSort = (sort: SortOption) => setFilters((prev) => ({ ...prev, sort }));
   const setShowWishlistOnly = (showWishlistOnly: boolean) =>
     setFilters((prev) => ({ ...prev, showWishlistOnly }));
 

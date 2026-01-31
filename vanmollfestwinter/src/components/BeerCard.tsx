@@ -8,15 +8,20 @@ interface BeerCardProps {
   showBrewery?: boolean;
 }
 
-export function BeerCard({ beer, isInWishlist, onToggleWishlist, showBrewery = false }: BeerCardProps) {
+export function BeerCard({
+  beer,
+  isInWishlist,
+  onToggleWishlist,
+  showBrewery = false,
+}: BeerCardProps) {
   const ratingColor =
     beer.rating === null
       ? 'text-slate-400'
       : beer.rating >= 4.0
-      ? 'text-green-500'
-      : beer.rating >= 3.5
-      ? 'text-amber-500'
-      : 'text-slate-500';
+        ? 'text-green-500'
+        : beer.rating >= 3.5
+          ? 'text-amber-500'
+          : 'text-slate-500';
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 flex flex-col hover:shadow-md transition-shadow">
@@ -42,7 +47,9 @@ export function BeerCard({ beer, isInWishlist, onToggleWishlist, showBrewery = f
         >
           <svg
             className={`w-5 h-5 transition-colors ${
-              isInWishlist ? 'text-red-500' : 'text-slate-300 dark:text-slate-600 hover:text-red-400'
+              isInWishlist
+                ? 'text-red-500'
+                : 'text-slate-300 dark:text-slate-600 hover:text-red-400'
             }`}
             fill={isInWishlist ? 'currentColor' : 'none'}
             stroke="currentColor"
@@ -92,7 +99,12 @@ export function BeerCard({ beer, isInWishlist, onToggleWishlist, showBrewery = f
           className="text-sm text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 font-medium"
         >
           Untappd
-          <svg className="inline-block w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="inline-block w-3 h-3 ml-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

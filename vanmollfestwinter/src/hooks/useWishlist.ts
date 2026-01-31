@@ -34,10 +34,7 @@ export function useWishlist() {
     });
   }, []);
 
-  const isInWishlist = useCallback(
-    (beerId: number) => wishlist.has(beerId),
-    [wishlist]
-  );
+  const isInWishlist = useCallback((beerId: number) => wishlist.has(beerId), [wishlist]);
 
   const clearWishlist = useCallback(() => {
     setWishlist(new Set());
