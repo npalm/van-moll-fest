@@ -8,7 +8,9 @@ interface BeerListProps {
   breweryGroups: BreweryGroup[];
   isGroupedView: boolean;
   isInWishlist: (id: number) => boolean;
+  hasTasted: (id: number) => boolean;
   onToggleWishlist: (id: number) => void;
+  onToggleTasted: (id: number) => void;
 }
 
 function EmptyState() {
@@ -38,11 +40,20 @@ function EmptyState() {
 interface BeerGridProps {
   beers: Beer[];
   isInWishlist: (id: number) => boolean;
+  hasTasted: (id: number) => boolean;
   onToggleWishlist: (id: number) => void;
+  onToggleTasted: (id: number) => void;
   showBrewery?: boolean;
 }
 
-function BeerGrid({ beers, isInWishlist, onToggleWishlist, showBrewery = false }: BeerGridProps) {
+function BeerGrid({
+  beers,
+  isInWishlist,
+  hasTasted,
+  onToggleWishlist,
+  onToggleTasted,
+  showBrewery = false,
+}: BeerGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {beers.map((beer) => (
@@ -50,7 +61,9 @@ function BeerGrid({ beers, isInWishlist, onToggleWishlist, showBrewery = false }
           key={beer.id}
           beer={beer}
           isInWishlist={isInWishlist(beer.id)}
+          hasTasted={hasTasted(beer.id)}
           onToggleWishlist={onToggleWishlist}
+          onToggleTasted={onToggleTasted}
           showBrewery={showBrewery}
         />
       ))}
@@ -63,7 +76,9 @@ export function BeerList({
   breweryGroups,
   isGroupedView,
   isInWishlist,
+  hasTasted,
   onToggleWishlist,
+  onToggleTasted,
 }: BeerListProps) {
   if (isGroupedView ? breweryGroups.length === 0 : beers.length === 0) {
     return <EmptyState />;
@@ -119,7 +134,9 @@ export function BeerList({
               <BeerGrid
                 beers={group.beers}
                 isInWishlist={isInWishlist}
+                hasTasted={hasTasted}
                 onToggleWishlist={onToggleWishlist}
+                onToggleTasted={onToggleTasted}
               />
             </section>
           );
@@ -133,7 +150,9 @@ export function BeerList({
     <BeerGrid
       beers={beers}
       isInWishlist={isInWishlist}
+      hasTasted={hasTasted}
       onToggleWishlist={onToggleWishlist}
+      onToggleTasted={onToggleTasted}
       showBrewery={true}
     />
   );

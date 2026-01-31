@@ -21,6 +21,7 @@ export interface BreweryGroup {
   beers: Beer[];
 }
 export type RatingFilter = 'all' | '4.0' | '3.75' | '3.5';
+export type TastedFilter = 'all' | 'tasted' | 'untasted';
 
 export interface FilterState {
   search: string;
@@ -28,4 +29,5 @@ export interface FilterState {
   rating: RatingFilter;
   sort: SortOption;
   showWishlistOnly: boolean;
+  tastedFilter: TastedFilter;
 }

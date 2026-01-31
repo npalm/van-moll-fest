@@ -5,6 +5,7 @@ import type {
   FilterState,
   SortOption,
   RatingFilter,
+  TastedFilter,
   BreweryGroup,
 } from '../types/beer';
 
@@ -27,10 +28,11 @@ interface UseBeersResult {
   setRating: (rating: RatingFilter) => void;
   setSort: (sort: SortOption) => void;
   setShowWishlistOnly: (show: boolean) => void;
+  setTastedFilter: (filter: TastedFilter) => void;
   isGroupedView: boolean;
 }
 
-export function useBeers(wishlist: Set<number>): UseBeersResult {
+export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBeersResult {
   // Data is loaded at build time, no fetching needed
   const [beers] = useState<Beer[]>((beersData as BeersData).beers);
   const [loading] = useState(false);
@@ -42,6 +44,7 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     rating: 'all',
     sort: 'brewery-grouped',
     showWishlistOnly: false,
+    tastedFilter: 'all',
   });
 
   // Extract unique styles
@@ -86,6 +89,13 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
       result = result.filter((beer) => wishlist.has(beer.id));
     }
 
+    // Tasted filter
+    if (filters.tastedFilter === 'tasted') {
+      result = result.filter((beer) => tastedList.has(beer.id));
+    } else if (filters.tastedFilter === 'untasted') {
+      result = result.filter((beer) => !tastedList.has(beer.id));
+    }
+
     // Sort
     result.sort((a, b) => {
       switch (filters.sort) {
@@ -114,7 +124,7 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     });
 
     return result;
-  }, [beers, filters, wishlist]);
+  }, [beers, filters, wishlist, tastedList]);
 
   // Group beers by brewery (for grouped view)
   const breweryGroups = useMemo((): BreweryGroup[] => {
@@ -148,6 +158,8 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
   const setSort = (sort: SortOption) => setFilters((prev) => ({ ...prev, sort }));
   const setShowWishlistOnly = (showWishlistOnly: boolean) =>
     setFilters((prev) => ({ ...prev, showWishlistOnly }));
+  const setTastedFilter = (tastedFilter: TastedFilter) =>
+    setFilters((prev) => ({ ...prev, tastedFilter }));
 
   return {
     beers,
@@ -165,6 +177,7 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     setRating,
     setSort,
     setShowWishlistOnly,
+    setTastedFilter,
     isGroupedView,
   };
 }
