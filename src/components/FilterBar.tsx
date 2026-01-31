@@ -113,24 +113,26 @@ export function FilterBar({
       </button>
 
       {/* Hide tasted toggle */}
-      <button
-        onClick={() => onHideTastedToggle(!hideTasted)}
-        className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors flex items-center gap-2 ${
-          hideTasted
-            ? 'bg-amber-500 border-amber-500 text-white'
-            : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-amber-500 dark:hover:border-amber-500'
-        }`}
-      >
-        <svg
-          className={`w-4 h-4 ${hideTasted ? 'text-white' : 'text-amber-500'}`}
-          fill="currentColor"
-          viewBox="0 0 24 24"
+      {tastedCount > 0 && (
+        <button
+          onClick={() => onHideTastedToggle(!hideTasted)}
+          className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors flex items-center gap-2 ${
+            hideTasted
+              ? 'bg-amber-500 border-amber-500 text-white'
+              : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-amber-500 dark:hover:border-amber-500'
+          }`}
         >
-          {/* Beer mug icon */}
-          <path d="M4 3h12v2c0 1-.5 2-1.5 2.5.5.5 1 1.5 1 2.5v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8c0-1 .5-2 1-2.5C4.5 7 4 6 4 5V3zm12 5h3a2 2 0 012 2v4a2 2 0 01-2 2h-3v-8z" />
-        </svg>
-        Tasted ({tastedCount})
-      </button>
+          <svg
+            className={`w-4 h-4 ${hideTasted ? 'text-white' : 'text-amber-500'}`}
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {/* Beer mug icon */}
+            <path d="M4 3h12v2c0 1-.5 2-1.5 2.5.5.5 1 1.5 1 2.5v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8c0-1 .5-2 1-2.5C4.5 7 4 6 4 5V3zm12 5h3a2 2 0 012 2v4a2 2 0 01-2 2h-3v-8z" />
+          </svg>
+          {hideTasted ? `Hiding ${tastedCount} tasted` : `Hide ${tastedCount} tasted`}
+        </button>
+      )}
     </div>
   );
 }
