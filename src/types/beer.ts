@@ -28,4 +28,5 @@ export interface FilterState {
   rating: RatingFilter;
   sort: SortOption;
   showWishlistOnly: boolean;
+  hideTasted: boolean;
 }

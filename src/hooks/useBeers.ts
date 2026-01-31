@@ -27,10 +27,11 @@ interface UseBeersResult {
   setRating: (rating: RatingFilter) => void;
   setSort: (sort: SortOption) => void;
   setShowWishlistOnly: (show: boolean) => void;
+  setHideTasted: (hide: boolean) => void;
   isGroupedView: boolean;
 }
 
-export function useBeers(wishlist: Set<number>): UseBeersResult {
+export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBeersResult {
   // Data is loaded at build time, no fetching needed
   const [beers] = useState<Beer[]>((beersData as BeersData).beers);
   const [loading] = useState(false);
@@ -42,6 +43,7 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     rating: 'all',
     sort: 'brewery-grouped',
     showWishlistOnly: false,
+    hideTasted: false,
   });
 
   // Extract unique styles
@@ -86,6 +88,11 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
       result = result.filter((beer) => wishlist.has(beer.id));
     }
 
+    // Hide tasted filter
+    if (filters.hideTasted) {
+      result = result.filter((beer) => !tastedList.has(beer.id));
+    }
+
     // Sort
     result.sort((a, b) => {
       switch (filters.sort) {
@@ -114,7 +121,7 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     });
 
     return result;
-  }, [beers, filters, wishlist]);
+  }, [beers, filters, wishlist, tastedList]);
 
   // Group beers by brewery (for grouped view)
   const breweryGroups = useMemo((): BreweryGroup[] => {
@@ -148,6 +155,8 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
   const setSort = (sort: SortOption) => setFilters((prev) => ({ ...prev, sort }));
   const setShowWishlistOnly = (showWishlistOnly: boolean) =>
     setFilters((prev) => ({ ...prev, showWishlistOnly }));
+  const setHideTasted = (hideTasted: boolean) =>
+    setFilters((prev) => ({ ...prev, hideTasted }));
 
   return {
     beers,
@@ -165,6 +174,7 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     setRating,
     setSort,
     setShowWishlistOnly,
+    setHideTasted,
     isGroupedView,
   };
 }
