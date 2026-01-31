@@ -1,12 +1,14 @@
 import type { Beer } from '../types/beer';
+import { BreweryLogo } from './BreweryLogo';
 
 interface BeerCardProps {
   beer: Beer;
   isInWishlist: boolean;
   onToggleWishlist: (id: number) => void;
+  showBrewery?: boolean;
 }
 
-export function BeerCard({ beer, isInWishlist, onToggleWishlist }: BeerCardProps) {
+export function BeerCard({ beer, isInWishlist, onToggleWishlist, showBrewery = false }: BeerCardProps) {
   const ratingColor =
     beer.rating === null
       ? 'text-slate-400'
@@ -17,12 +19,22 @@ export function BeerCard({ beer, isInWishlist, onToggleWishlist }: BeerCardProps
       : 'text-slate-500';
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 flex flex-col">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 flex flex-col hover:shadow-md transition-shadow">
       {/* Header with name and wishlist */}
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="font-semibold text-slate-900 dark:text-white leading-tight">
-          {beer.name}
-        </h3>
+        <div className="flex items-start gap-3 min-w-0">
+          {showBrewery && (
+            <BreweryLogo brewery={beer.brewery} size="sm" className="flex-shrink-0 mt-0.5" />
+          )}
+          <div className="min-w-0">
+            <h3 className="font-semibold text-slate-900 dark:text-white leading-tight">
+              {beer.name}
+            </h3>
+            {showBrewery && (
+              <p className="text-sm text-slate-600 dark:text-slate-400 truncate">{beer.brewery}</p>
+            )}
+          </div>
+        </div>
         <button
           onClick={() => onToggleWishlist(beer.id)}
           className="wishlist-btn flex-shrink-0 p-1 -m-1 rounded transition-colors"
@@ -45,9 +57,6 @@ export function BeerCard({ beer, isInWishlist, onToggleWishlist }: BeerCardProps
           </svg>
         </button>
       </div>
-
-      {/* Brewery */}
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">{beer.brewery}</p>
 
       {/* Style badge */}
       <span className="inline-block self-start px-2 py-0.5 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 mb-3">

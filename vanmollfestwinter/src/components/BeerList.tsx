@@ -1,5 +1,7 @@
 import type { Beer, BreweryGroup } from '../types/beer';
 import { BeerCard } from './BeerCard';
+import { BreweryLogo } from './BreweryLogo';
+import { getBreweryInfo } from '../data/breweries';
 
 interface BeerListProps {
   beers: Beer[];
@@ -39,9 +41,10 @@ interface BeerGridProps {
   beers: Beer[];
   isInWishlist: (id: number) => boolean;
   onToggleWishlist: (id: number) => void;
+  showBrewery?: boolean;
 }
 
-function BeerGrid({ beers, isInWishlist, onToggleWishlist }: BeerGridProps) {
+function BeerGrid({ beers, isInWishlist, onToggleWishlist, showBrewery = false }: BeerGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {beers.map((beer) => (
@@ -50,6 +53,7 @@ function BeerGrid({ beers, isInWishlist, onToggleWishlist }: BeerGridProps) {
           beer={beer}
           isInWishlist={isInWishlist(beer.id)}
           onToggleWishlist={onToggleWishlist}
+          showBrewery={showBrewery}
         />
       ))}
     </div>
@@ -64,24 +68,48 @@ export function BeerList({ beers, breweryGroups, isGroupedView, isInWishlist, on
   // Grouped view by brewery
   if (isGroupedView) {
     return (
-      <div className="space-y-8">
-        {breweryGroups.map((group) => (
-          <section key={group.brewery}>
-            <div className="flex items-center gap-3 mb-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                {group.brewery}
-              </h2>
-              <span className="px-2 py-0.5 text-sm font-medium rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
-                {group.beers.length} {group.beers.length === 1 ? 'beer' : 'beers'}
-              </span>
-            </div>
-            <BeerGrid
-              beers={group.beers}
-              isInWishlist={isInWishlist}
-              onToggleWishlist={onToggleWishlist}
-            />
-          </section>
-        ))}
+      <div className="space-y-10">
+        {breweryGroups.map((group) => {
+          const breweryInfo = getBreweryInfo(group.brewery);
+          return (
+            <section key={group.brewery} className="relative">
+              {/* Brewery header */}
+              <div className="flex items-center gap-4 mb-5 pb-4 border-b border-slate-200 dark:border-slate-700">
+                <a 
+                  href={breweryInfo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <BreweryLogo brewery={group.brewery} size="lg" />
+                </a>
+                <div className="flex-1">
+                  <a 
+                    href={breweryInfo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group"
+                  >
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-500 transition-colors">
+                      {group.brewery}
+                      <svg className="inline-block w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </h2>
+                  </a>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                    {group.beers.length} {group.beers.length === 1 ? 'beer' : 'beers'} available
+                  </p>
+                </div>
+              </div>
+              <BeerGrid
+                beers={group.beers}
+                isInWishlist={isInWishlist}
+                onToggleWishlist={onToggleWishlist}
+              />
+            </section>
+          );
+        })}
       </div>
     );
   }
@@ -92,6 +120,7 @@ export function BeerList({ beers, breweryGroups, isGroupedView, isInWishlist, on
       beers={beers}
       isInWishlist={isInWishlist}
       onToggleWishlist={onToggleWishlist}
+      showBrewery={true}
     />
   );
 }
