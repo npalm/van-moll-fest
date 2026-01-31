@@ -8,8 +8,16 @@ import { BeerList } from './components/BeerList';
 
 function App() {
   const { isDark, toggleTheme } = useTheme();
-  const { wishlist, tastedList, wishlistCount, tastedCount, toggleWishlist, toggleTasted, isInWishlist, hasTasted } =
-    useWishlist();
+  const {
+    wishlist,
+    tastedList,
+    wishlistCount,
+    tastedCount,
+    toggleWishlist,
+    toggleTasted,
+    isInWishlist,
+    hasTasted,
+  } = useWishlist();
   const {
     beers,
     filteredBeers,

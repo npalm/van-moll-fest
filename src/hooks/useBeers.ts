@@ -155,8 +155,7 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
   const setSort = (sort: SortOption) => setFilters((prev) => ({ ...prev, sort }));
   const setShowWishlistOnly = (showWishlistOnly: boolean) =>
     setFilters((prev) => ({ ...prev, showWishlistOnly }));
-  const setHideTasted = (hideTasted: boolean) =>
-    setFilters((prev) => ({ ...prev, hideTasted }));
+  const setHideTasted = (hideTasted: boolean) => setFilters((prev) => ({ ...prev, hideTasted }));
 
   return {
     beers,
