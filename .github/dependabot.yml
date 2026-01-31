@@ -1,0 +1,97 @@
+version: 2
+updates:
+  # Enable version updates for npm (main project)
+  # Checks weekly (7-day interval between checks)
+  # Limit PRs to prevent overwhelming reviewers (pedantic mode requirement)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    reviewers:
+      - "npalm"
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "chore(deps)"
+    ignore:
+      # Pin @types/node to Node LTS version (24.x)
+      # Major updates should be manual when upgrading Node version
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+    groups:
+      # Group all development dependencies together
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group all production dependencies together for minor/patch updates
+      prod-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Enable version updates for npm (CLI tool)
+  # Checks weekly (7-day interval between checks)
+  # Limit PRs to prevent overwhelming reviewers (pedantic mode requirement)
+  - package-ecosystem: "npm"
+    directory: "/tools/cli"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 3
+    reviewers:
+      - "npalm"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "tools"
+    commit-message:
+      prefix: "chore(deps)"
+    ignore:
+      # Pin @types/node to Node LTS version (24.x)
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Enable version updates for GitHub Actions
+  # Checks weekly (7-day interval between checks)
+  # Limit PRs to prevent overwhelming reviewers (pedantic mode requirement)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 3
+    reviewers:
+      - "npalm"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      # Group all GitHub Actions together
+      github-actions:
+        patterns:
+          - "*"
+    # Keep actions pinned to SHA but update the comments with version tags
+    # This maintains security while keeping track of versions

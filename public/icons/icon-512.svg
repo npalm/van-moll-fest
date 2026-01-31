@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#0f172a"/>
+  <circle cx="256" cy="200" r="100" fill="#f59e0b"/>
+  <rect x="226" y="280" width="60" height="130" rx="10" fill="#f59e0b"/>
+  <rect x="196" y="400" width="120" height="40" rx="10" fill="#f59e0b"/>
+  <text x="256" y="480" font-family="system-ui" font-size="36" fill="#94a3b8" text-anchor="middle">VMF 2026</text>
+</svg>
