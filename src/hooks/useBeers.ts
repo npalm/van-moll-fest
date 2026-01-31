@@ -9,7 +9,7 @@ import type {
 } from '../types/beer';
 
 // Import beer data directly - bundled at build time
-import beersData from '../../public/beers.json';
+import beersData from '../data/beers.json';
 
 interface UseBeersResult {
   beers: Beer[];
