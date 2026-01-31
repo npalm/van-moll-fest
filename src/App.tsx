@@ -17,6 +17,7 @@ function App() {
     toggleTasted,
     isInWishlist,
     hasTasted,
+    resetAll,
   } = useWishlist();
   const {
     beers,
@@ -69,6 +70,8 @@ function App() {
         toggleTheme={toggleTheme}
         beerCount={filteredBeers.length}
         totalCount={beers.length}
+        onReset={resetAll}
+        hasData={wishlistCount > 0 || tastedCount > 0}
       />
 
       <main className="max-w-7xl mx-auto px-4 py-6">

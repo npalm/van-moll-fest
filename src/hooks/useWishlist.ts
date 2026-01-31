@@ -77,6 +77,11 @@ export function useWishlist() {
     setTastedList(new Set());
   }, []);
 
+  const resetAll = useCallback(() => {
+    setWishlist(new Set());
+    setTastedList(new Set());
+  }, []);
+
   return {
     wishlist,
     tastedList,
@@ -88,5 +93,6 @@ export function useWishlist() {
     hasTasted,
     clearWishlist,
     clearTastedList,
+    resetAll,
   };
 }
