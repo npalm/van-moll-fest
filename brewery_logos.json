@@ -1,0 +1,87 @@
+{
+  "CRAK": {
+    "slug": "CRAKBrewery",
+    "logo": null,
+    "source": null
+  },
+  "The Garden Brewery": {
+    "slug": "TheGardenBrewery",
+    "logo": "/logos/the_garden_brewery.jpeg",
+    "source": "https://assets.untappd.com/site/brewery_logos/brewery-275842_05f4d.jpeg"
+  },
+  "Lost Brewing": {
+    "slug": "LostBrewing",
+    "logo": "/logos/lost_brewing.jpeg",
+    "source": "https://assets.untappd.com/site/brewery_logos/brewery-521911_30786.jpeg"
+  },
+  "Maisel & Friends": {
+    "slug": "MaiselAndFriends",
+    "logo": null,
+    "source": null
+  },
+  "Bayreuther": {
+    "slug": "BayreutherBierbrauerei",
+    "logo": null,
+    "source": null
+  },
+  "Mederij Marcus": {
+    "slug": "MederijMarcus",
+    "logo": null,
+    "source": null
+  },
+  "De Moersleutel": {
+    "slug": "Moersleutel",
+    "logo": "/logos/de_moersleutel.jpeg",
+    "source": "https://assets.untappd.com/site/brewery_logos/brewery-269726_b21c3.jpeg"
+  },
+  "Van Moll": {
+    "slug": "VanMoll",
+    "logo": "/logos/van_moll.jpeg",
+    "source": "https://assets.untappd.com/site/brewery_logos/brewery-40108_84768.jpeg"
+  },
+  "Moon Lark": {
+    "slug": "MoonLark",
+    "logo": null,
+    "source": null
+  },
+  "Prizm Brewing": {
+    "slug": "PrizmBrewing",
+    "logo": null,
+    "source": null
+  },
+  "Salikatt": {
+    "slug": "SalikattBryggeri",
+    "logo": null,
+    "source": null
+  },
+  "Salt Beer Factory": {
+    "slug": "SaltBeerFactory",
+    "logo": null,
+    "source": null
+  },
+  "Sibeeria": {
+    "slug": "sibeeria",
+    "logo": null,
+    "source": null
+  },
+  "Sisters Brewery": {
+    "slug": "SistersBrouwerij",
+    "logo": null,
+    "source": null
+  },
+  "Struise Brouwers": {
+    "slug": "StruiseBrouwers",
+    "logo": null,
+    "source": null
+  },
+  "Totenhopfen": {
+    "slug": "totenhopfen",
+    "logo": null,
+    "source": null
+  },
+  "Vocation Brewery": {
+    "slug": "VocationBrewery",
+    "logo": null,
+    "source": null
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "CRAK": {
+    "slug": "crakrewery",
+    "url": "https://untappd.com/crakrewery",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-183551_66341.jpeg"
+  },
+  "The Garden Brewery": {
+    "slug": "TheGardenBrewery",
+    "url": "https://untappd.com/TheGardenBrewery",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-275842_05f4d.jpeg"
+  },
+  "Lost Brewing": {
+    "slug": "Brouwerij_LOST",
+    "url": "https://untappd.com/Brouwerij_LOST",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-477804_91785.jpeg"
+  },
+  "Maisel & Friends": {
+    "slug": "Brauerei-Gebr-Maisel",
+    "url": "https://untappd.com/Brauerei-Gebr-Maisel",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-209_6a8d4.jpeg"
+  },
+  "Bayreuther": {
+    "slug": "GunpowderFallsBrewing",
+    "url": "https://untappd.com/GunpowderFallsBrewing",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-GunpowderFalls_46755.jpeg"
+  },
+  "Mederij Marcus": {
+    "slug": "Mederij-Marcus",
+    "url": "https://untappd.com/Mederij-Marcus",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-265040_9f8e8.jpeg"
+  },
+  "De Moersleutel": {
+    "slug": "Moersleutel",
+    "url": "https://untappd.com/Moersleutel",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-269726_b21c3.jpeg"
+  },
+  "Van Moll": {
+    "slug": "VanMoll",
+    "url": "https://untappd.com/VanMoll",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-40108_84768.jpeg"
+  },
+  "Moon Lark": {
+    "slug": "oldehickory",
+    "url": "https://untappd.com/oldehickory",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-2957_0c709.jpeg"
+  },
+  "Prizm Brewing": {
+    "slug": "PrizmBrewCo",
+    "url": "https://untappd.com/PrizmBrewCo",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-467402_59536.jpeg"
+  },
+  "Salikatt": {
+    "slug": "Salikatt_Bryggeri",
+    "url": "https://untappd.com/Salikatt_Bryggeri",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-273971_c9189.jpeg"
+  },
+  "Salt Beer Factory": {
+    "slug": "SaltBrewing",
+    "url": "https://untappd.com/SaltBrewing",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-402509_5a38c.jpeg"
+  },
+  "Sibeeria": {
+    "slug": "sibeeria_cz",
+    "url": "https://untappd.com/sibeeria_cz",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-172008_867a0.jpeg"
+  },
+  "Sisters Brewery": {
+    "slug": "TheSistersBrewery",
+    "url": "https://untappd.com/TheSistersBrewery",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-225097_14b97.jpeg"
+  },
+  "Struise Brouwers": {
+    "slug": "struise",
+    "url": "https://untappd.com/struise",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-DeStruiseBrouwers_433.jpeg"
+  },
+  "Totenhopfen": {
+    "slug": "hoppypeople",
+    "url": "https://untappd.com/hoppypeople",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-175325_cce4e.jpeg"
+  },
+  "Vocation Brewery": {
+    "slug": "Vocation",
+    "url": "https://untappd.com/Vocation",
+    "logo_url": "https://assets.untappd.com/site/brewery_logos/brewery-198288_621de.jpeg"
+  }
+}

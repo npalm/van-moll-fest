@@ -1,0 +1,87 @@
+{
+  "CRAK": {
+    "slug": "crakrewery",
+    "url": "https://untappd.com/crakrewery",
+    "logo": "/logos/crak.jpeg"
+  },
+  "The Garden Brewery": {
+    "slug": "TheGardenBrewery",
+    "url": "https://untappd.com/TheGardenBrewery",
+    "logo": "/logos/the_garden_brewery.jpeg"
+  },
+  "Lost Brewing": {
+    "slug": "Brouwerij_LOST",
+    "url": "https://untappd.com/Brouwerij_LOST",
+    "logo": "/logos/lost_brewing.jpeg"
+  },
+  "Maisel & Friends": {
+    "slug": "Brauerei-Gebr-Maisel",
+    "url": "https://untappd.com/Brauerei-Gebr-Maisel",
+    "logo": "/logos/maisel___friends.jpeg"
+  },
+  "Bayreuther": {
+    "slug": "GunpowderFallsBrewing",
+    "url": "https://untappd.com/GunpowderFallsBrewing",
+    "logo": "/logos/bayreuther.jpeg"
+  },
+  "Mederij Marcus": {
+    "slug": "Mederij-Marcus",
+    "url": "https://untappd.com/Mederij-Marcus",
+    "logo": "/logos/mederij_marcus.jpeg"
+  },
+  "De Moersleutel": {
+    "slug": "Moersleutel",
+    "url": "https://untappd.com/Moersleutel",
+    "logo": "/logos/de_moersleutel.jpeg"
+  },
+  "Van Moll": {
+    "slug": "VanMoll",
+    "url": "https://untappd.com/VanMoll",
+    "logo": "/logos/van_moll.jpeg"
+  },
+  "Moon Lark": {
+    "slug": "oldehickory",
+    "url": "https://untappd.com/oldehickory",
+    "logo": "/logos/moon_lark.jpeg"
+  },
+  "Prizm Brewing": {
+    "slug": "PrizmBrewCo",
+    "url": "https://untappd.com/PrizmBrewCo",
+    "logo": "/logos/prizm_brewing.jpeg"
+  },
+  "Salikatt": {
+    "slug": "Salikatt_Bryggeri",
+    "url": "https://untappd.com/Salikatt_Bryggeri",
+    "logo": "/logos/salikatt.jpeg"
+  },
+  "Salt Beer Factory": {
+    "slug": "SaltBrewing",
+    "url": "https://untappd.com/SaltBrewing",
+    "logo": "/logos/salt_beer_factory.jpeg"
+  },
+  "Sibeeria": {
+    "slug": "sibeeria_cz",
+    "url": "https://untappd.com/sibeeria_cz",
+    "logo": "/logos/sibeeria.jpeg"
+  },
+  "Sisters Brewery": {
+    "slug": "TheSistersBrewery",
+    "url": "https://untappd.com/TheSistersBrewery",
+    "logo": "/logos/sisters_brewery.jpeg"
+  },
+  "Struise Brouwers": {
+    "slug": "struise",
+    "url": "https://untappd.com/struise",
+    "logo": "/logos/struise_brouwers.jpeg"
+  },
+  "Totenhopfen": {
+    "slug": "hoppypeople",
+    "url": "https://untappd.com/hoppypeople",
+    "logo": "/logos/totenhopfen.jpeg"
+  },
+  "Vocation Brewery": {
+    "slug": "Vocation",
+    "url": "https://untappd.com/Vocation",
+    "logo": "/logos/vocation_brewery.jpeg"
+  }
+}

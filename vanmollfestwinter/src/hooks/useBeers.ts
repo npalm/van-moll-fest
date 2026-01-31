@@ -1,5 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import type { Beer, BeersData, FilterState, SortOption, RatingFilter, BreweryGroup } from '../types/beer';
+
+// Import beer data directly - bundled at build time
+import beersData from '../../public/beers.json';
 
 interface UseBeersResult {
   beers: Beer[];
@@ -20,10 +23,11 @@ interface UseBeersResult {
 }
 
 export function useBeers(wishlist: Set<number>): UseBeersResult {
-  const [beers, setBeers] = useState<Beer[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  // Data is loaded at build time, no fetching needed
+  const [beers] = useState<Beer[]>((beersData as BeersData).beers);
+  const [loading] = useState(false);
+  const [error] = useState<string | null>(null);
+  const [lastUpdated] = useState<string | null>((beersData as BeersData).lastUpdated);
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     style: '',
@@ -31,26 +35,6 @@ export function useBeers(wishlist: Set<number>): UseBeersResult {
     sort: 'brewery-grouped',
     showWishlistOnly: false,
   });
-
-  // Fetch beers on mount
-  useEffect(() => {
-    async function fetchBeers() {
-      try {
-        const response = await fetch('/beers.json');
-        if (!response.ok) {
-          throw new Error('Failed to load beers');
-        }
-        const data: BeersData = await response.json();
-        setBeers(data.beers);
-        setLastUpdated(data.lastUpdated);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchBeers();
-  }, []);
 
   // Extract unique styles
   const styles = useMemo(() => {
