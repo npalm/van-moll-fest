@@ -1,5 +1,5 @@
 {
-  "CRAK": {
+  "CRAK Brewery": {
     "slug": "crakrewery",
     "url": "https://untappd.com/crakrewery",
     "logo": "/logos/crak.jpeg"
@@ -18,11 +18,6 @@
     "slug": "Brauerei-Gebr-Maisel",
     "url": "https://untappd.com/Brauerei-Gebr-Maisel",
     "logo": "/logos/maisel___friends.jpeg"
-  },
-  "Bayreuther": {
-    "slug": "GunpowderFallsBrewing",
-    "url": "https://untappd.com/GunpowderFallsBrewing",
-    "logo": "/logos/bayreuther.jpeg"
   },
   "Mederij Marcus": {
     "slug": "Mederij-Marcus",

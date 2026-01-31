@@ -1,5 +1,6 @@
 import type { Beer } from '../types/beer';
 import { BreweryLogo } from './BreweryLogo';
+import { getBreweryInfo } from '../data/breweries';
 
 interface BeerCardProps {
   beer: Beer;
@@ -8,6 +9,7 @@ interface BeerCardProps {
   onToggleWishlist: (id: number) => void;
   onToggleTasted: (id: number) => void;
   showBrewery?: boolean;
+  showFloor?: boolean;
 }
 
 export function BeerCard({
@@ -17,6 +19,7 @@ export function BeerCard({
   onToggleWishlist,
   onToggleTasted,
   showBrewery = false,
+  showFloor = false,
 }: BeerCardProps) {
   const ratingColor =
     beer.rating === null
@@ -26,6 +29,8 @@ export function BeerCard({
         : beer.rating >= 3.5
           ? 'text-amber-500'
           : 'text-slate-500';
+
+  const breweryInfo = showFloor ? getBreweryInfo(beer.brewery) : null;
 
   return (
     <div
@@ -44,7 +49,16 @@ export function BeerCard({
               {beer.name}
             </h3>
             {showBrewery && (
-              <p className="text-sm text-slate-600 dark:text-slate-400 truncate">{beer.brewery}</p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <p className="text-sm text-slate-600 dark:text-slate-400 truncate">
+                  {beer.brewery}
+                </p>
+                {showFloor && breweryInfo && (
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 flex-shrink-0">
+                    Floor {breweryInfo.floor}
+                  </span>
+                )}
+              </div>
             )}
           </div>
         </div>

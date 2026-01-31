@@ -4,7 +4,7 @@
     {
       "id": 960836,
       "name": "Guerilla IPA",
-      "brewery": "CRAK",
+      "brewery": "CRAK Brewery",
       "style": "IPA",
       "abv": 5.8,
       "rating": 3.721,
@@ -14,7 +14,7 @@
     {
       "id": 6501947,
       "name": "Calimax 2025",
-      "brewery": "CRAK",
+      "brewery": "CRAK Brewery",
       "style": "Coffee Stout",
       "abv": 6.5,
       "rating": 3.802,
@@ -24,7 +24,7 @@
     {
       "id": null,
       "name": "Loza Farms NEIPA",
-      "brewery": "CRAK",
+      "brewery": "CRAK Brewery",
       "style": "NEIPA",
       "abv": 6.5,
       "rating": null,
@@ -34,7 +34,7 @@
     {
       "id": 6430280,
       "name": "Pizzapils Freestyle",
-      "brewery": "CRAK",
+      "brewery": "CRAK Brewery",
       "style": "Extra Dry-Hopped Italian Pilsner",
       "abv": 4.7,
       "rating": 3.623,
@@ -154,7 +154,7 @@
     {
       "id": 601191,
       "name": "Hell Unfiltered",
-      "brewery": "Bayreuther",
+      "brewery": "Maisel & Friends",
       "style": "Helles",
       "abv": 4.7,
       "rating": 3.467,

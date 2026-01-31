@@ -44,6 +44,7 @@ interface BeerGridProps {
   onToggleWishlist: (id: number) => void;
   onToggleTasted: (id: number) => void;
   showBrewery?: boolean;
+  showFloor?: boolean;
 }
 
 function BeerGrid({
@@ -53,6 +54,7 @@ function BeerGrid({
   onToggleWishlist,
   onToggleTasted,
   showBrewery = false,
+  showFloor = false,
 }: BeerGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -65,6 +67,7 @@ function BeerGrid({
           onToggleWishlist={onToggleWishlist}
           onToggleTasted={onToggleTasted}
           showBrewery={showBrewery}
+          showFloor={showFloor}
         />
       ))}
     </div>
@@ -128,6 +131,8 @@ export function BeerList({
                   </a>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                     {group.beers.length} {group.beers.length === 1 ? 'beer' : 'beers'} available
+                    {' • '}
+                    Floor {breweryInfo.floor}
                   </p>
                 </div>
               </div>
@@ -154,6 +159,7 @@ export function BeerList({
       onToggleWishlist={onToggleWishlist}
       onToggleTasted={onToggleTasted}
       showBrewery={true}
+      showFloor={true}
     />
   );
 }
