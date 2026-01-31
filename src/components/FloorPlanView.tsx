@@ -22,17 +22,11 @@ export function FloorPlanView({ breweryGroups }: FloorPlanViewProps) {
     <div className="space-y-8">
       {/* Floor 1 */}
       <section>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-          First Floor
-        </h2>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">First Floor</h2>
 
         {/* Floor plan image */}
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden mb-6">
-          <img
-            src="/floorplans/first-floor.png"
-            alt="First Floor Plan"
-            className="w-full h-auto"
-          />
+          <img src="/floorplans/first-floor.png" alt="First Floor Plan" className="w-full h-auto" />
         </div>
 
         {/* Brewery list */}
@@ -79,9 +73,7 @@ export function FloorPlanView({ breweryGroups }: FloorPlanViewProps) {
 
       {/* Floor 2 */}
       <section>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-          Second Floor
-        </h2>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Second Floor</h2>
 
         {/* Floor plan image */}
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden mb-6">

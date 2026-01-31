@@ -32,6 +32,19 @@ interface UseBeersResult {
   isGroupedView: boolean;
 }
 
+// Helper function to get sortable brewery name by removing articles
+function getBrewerySortKey(brewery: string): string {
+  const lower = brewery.toLowerCase();
+  // Remove leading articles (the, de, van, het, 't, etc.)
+  const articles = ['the ', 'de ', 'van ', 'het ', "'t ", "de'", "het'"];
+  for (const article of articles) {
+    if (lower.startsWith(article)) {
+      return brewery.substring(article.length).trim();
+    }
+  }
+  return brewery;
+}
+
 export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBeersResult {
   // Data is loaded at build time, no fetching needed
   const [beers] = useState<Beer[]>((beersData as BeersData).beers);
@@ -56,7 +69,7 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
   // Extract unique breweries
   const breweries = useMemo(() => {
     const uniqueBreweries = [...new Set(beers.map((b) => b.brewery))];
-    return uniqueBreweries.sort();
+    return uniqueBreweries.sort((a, b) => getBrewerySortKey(a).localeCompare(getBrewerySortKey(b)));
   }, [beers]);
 
   // Filter and sort beers
@@ -100,8 +113,10 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
     result.sort((a, b) => {
       switch (filters.sort) {
         case 'brewery-grouped': {
-          // Sort by brewery first, then by beer name within brewery
-          const breweryCompare = a.brewery.localeCompare(b.brewery);
+          // Sort by brewery first (ignoring articles), then by beer name within brewery
+          const breweryCompare = getBrewerySortKey(a.brewery).localeCompare(
+            getBrewerySortKey(b.brewery)
+          );
           if (breweryCompare !== 0) return breweryCompare;
           return a.name.localeCompare(b.name);
         }
@@ -114,7 +129,7 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
         case 'abv':
           return b.abv - a.abv;
         case 'brewery':
-          return a.brewery.localeCompare(b.brewery);
+          return getBrewerySortKey(a.brewery).localeCompare(getBrewerySortKey(b.brewery));
         case 'name':
           return a.name.localeCompare(b.name);
         case 'order':
@@ -139,7 +154,7 @@ export function useBeers(wishlist: Set<number>, tastedList: Set<number>): UseBee
 
     return Array.from(groups.entries())
       .map(([brewery, beers]) => ({ brewery, beers }))
-      .sort((a, b) => a.brewery.localeCompare(b.brewery));
+      .sort((a, b) => getBrewerySortKey(a.brewery).localeCompare(getBrewerySortKey(b.brewery)));
   }, [filteredBeers, filters.sort]);
 
   const isGroupedView = filters.sort === 'brewery-grouped';
